@@ -1,0 +1,20 @@
+{% extends 'startpage/base.html' %}
+
+{% block content %}
+    <h1>Блог</h1>
+    <h2>
+        {% for m in spisok %}
+            <li>{{ m }}</li>
+        {% endfor %}
+    </h2>
+    <h1>Известные женщины</h1>
+    <h2>
+        {% for foo in posts%}
+            <li>{{ foo.title }}</li>
+            <li>{{ foo.content }}</li>
+            <li>{{ foo.time_create }}</li>
+
+        {% endfor %}
+
+    </h2>
+{% endblock %}
