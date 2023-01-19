@@ -7,10 +7,20 @@
     <title>Title</title>
 </head>
 <body>
+    {% if cat_selected == 0 %}
+        <li class="selected">Все категории</li>
+    {% else %}
+        <li><a href="{% url 'home' %}">Все категории</a></li>
+    {% endif %} 
+    {% for c in cats %}
+        <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+    {% endfor %}
     {% for m in spisok %}
         <h1><li><a href="{% url m.url_name %}">{{ m.title }}</a></li></h1>
 
     {% endfor %}
+
+
 
     {% block mainmenu %}
 
