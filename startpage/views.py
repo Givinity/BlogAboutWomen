@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import *
 
@@ -18,8 +18,14 @@ def about(request):
     return render(request, 'startpage/about.html')
 
 def show_post(request, post_id):
-    return HttpResponse(f'Отображается пост с id {post_id}')
-
+    post = get_object_or_404(Women, pk=post_id)
+    context = {
+        'post': post,
+        'menu': menu,
+        'title': post.title,
+        'cat_selected': post.cat_id,
+    }
+    return render(request, 'startpage/post.html')
 def show_category(request, cat_id):
     posts = Women.objects.filter(cat_id=cat_id)
 

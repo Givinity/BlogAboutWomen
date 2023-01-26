@@ -5,6 +5,9 @@
     <h1>Известные женщины</h1>
     <h2>
         {% for foo in posts%}
+            {% if foo.photo %}
+                <p><img class="img-article-left thumb" src="{{ foo.photo.url }}" alt=""></p>
+            {% endif %}
             <li>{{ foo.title }}
             {{foo.content|truncatewords:50}}
             </li>
@@ -14,5 +17,7 @@
         {% endfor %}
 
     </h2>
+
+
     <br>
 {% endblock %}

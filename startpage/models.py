@@ -3,7 +3,7 @@ from django.urls import reverse
 
 
 class Women(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
     content = models.TextField(blank=True)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
     time_create = models.DateTimeField(auto_now_add=True)
@@ -23,10 +23,14 @@ class Women(models.Model):
         ordering = ['time_create', 'title']
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
+    name = models.CharField(max_length=100, db_index=True, verbose_name='Категория')
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('cat', kwargs={'cat_id': self.pk})
+    class Meta:
+        verbose_name = 'категорию'
+        verbose_name_plural = 'Категории'
+        ordering = ['id']
