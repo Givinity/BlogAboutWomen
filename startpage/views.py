@@ -25,7 +25,7 @@ def show_post(request, post_id):
         'title': post.title,
         'cat_selected': post.cat_id,
     }
-    return render(request, 'startpage/post.html')
+    return render(request, 'startpage/post.html', context=context)
 def show_category(request, cat_id):
     posts = Women.objects.filter(cat_id=cat_id)
 
