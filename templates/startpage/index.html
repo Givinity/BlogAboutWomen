@@ -1,8 +1,7 @@
 {% extends 'startpage/base.html' %}
 
 {% block content %}
-    <h1>Блог</h1>
-    <h1>Известные женщины</h1>
+    <h1 class="blog">Блог известных женщин</h1>
     <h2>
         {% for foo in posts%}
             {% if foo.photo %}
@@ -15,6 +14,7 @@
             <a href="{{ foo.get_absolute_url }}">Читать пост</a>
 
         {% endfor %}
+        <br>
 
     </h2>
 

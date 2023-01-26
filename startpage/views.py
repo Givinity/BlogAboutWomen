@@ -17,8 +17,8 @@ def index(request):
 def about(request):
     return render(request, 'startpage/about.html')
 
-def show_post(request, post_id):
-    post = get_object_or_404(Women, pk=post_id)
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
     context = {
         'post': post,
         'menu': menu,
@@ -26,8 +26,13 @@ def show_post(request, post_id):
         'cat_selected': post.cat_id,
     }
     return render(request, 'startpage/post.html', context=context)
-def show_category(request, cat_id):
-    posts = Women.objects.filter(cat_id=cat_id)
+def show_category(request, cat_slug):
+    posts = Women.objects.filter(cat__slug=cat_slug)
+    context = {
+        'title': 'startpage',
+        'spisok': menu,
+        'posts': posts,
+        'cat_slug': cat_slug
+    }
 
-    return render(request, 'startpage/index.html', {'title': 'startpage', 'spisok': menu,
-                                                    'posts': posts, 'cat_id': cat_id})
+    return render(request, 'startpage/index.html', context=context)
