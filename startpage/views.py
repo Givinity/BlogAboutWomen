@@ -1,13 +1,15 @@
 from django.http import HttpResponse
 
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import AddPostForm
 from .models import *
 
 menu = [
     {'title': 'Главная страница', "url_name": 'home'},
-    {'title': 'О сайте', "url_name": 'about'}
+    {'title': 'О сайте', "url_name": 'about'},
+    {'title': 'Добавить статью', "url_name": 'addpage'}
 ]
 def index(request):
     posts = Women.objects.all()
@@ -36,3 +38,17 @@ def show_category(request, cat_slug):
     }
 
     return render(request, 'startpage/index.html', context=context)
+
+def add_page(request):
+    if request.method == 'POST':
+        form = AddPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            #print(form.cleaned_data)
+            try:
+                form.save()
+                return redirect('home')
+            except:
+                form.add_error(None, 'Ошибка добавления поста')
+    else:
+        form = AddPostForm()
+    return render(request, 'startpage/addpage.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})
