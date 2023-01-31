@@ -2,6 +2,7 @@ from django.http import HttpResponse
 
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 
 from .forms import AddPostForm
 from .models import *
@@ -11,6 +12,10 @@ menu = [
     {'title': 'О сайте', "url_name": 'about'},
     {'title': 'Добавить статью', "url_name": 'addpage'}
 ]
+
+class WomenHome(ListView):
+    model = Women
+
 def index(request):
     posts = Women.objects.all()
     cats = Category.objects.all()
