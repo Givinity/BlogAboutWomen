@@ -1,8 +1,9 @@
 {% extends 'startpage/base.html' %}
 
 {% block content %}
-    <h1 class="blog">Блог известных женщин</h1>
-    <h2>
+    <div><h1>Блог известных женщин</h1></div>
+    <div>
+    <h4>
         {% for foo in posts%}
             {% if foo.photo %}
                 <p><img class="img-article-left thumb" src="{{ foo.photo.url }}" alt=""></p>
@@ -16,7 +17,8 @@
         {% endfor %}
         <br>
 
-    </h2>
+    </h4>
+    </div>
 
 
     <br>

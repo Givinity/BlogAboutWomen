@@ -9,7 +9,7 @@
 <body>
     <div class="start">
     {% for m in spisok %}
-        <h2><li><a href="{% url m.url_name %}">{{ m.title }}</a></li></h2>
+        <h3><li><a href="{% url m.url_name %}">{{ m.title }}</a></li></h3>
 
     {% endfor %}
     </div>

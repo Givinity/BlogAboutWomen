@@ -1,12 +1,12 @@
 from django.urls import path
 
-from .views import *
+from startpage.views import *
 
 
 urlpatterns = [
-    path('', index, name='home'),
+    path('', WomenHome.as_view(), name='home'),
     path('about/', about, name='about'),
-    path('post/<slug:post_slug>/', show_post, name='post'),
-    path('category/<slug:cat_slug>', show_category, name='cat'),
-    path('addpage', add_page, name='addpage'),
+    path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
+    path('category/<slug:cat_slug>', WomenCategory.as_view(), name='cat'),
+    path('addpage', AddPage.as_view(), name='addpage'),
 ]
