@@ -6,24 +6,17 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from .forms import AddPostForm
 from .models import *
+from .utils import *
 
-menu = [
-    {'title': 'Главная страница', "url_name": 'home'},
-    {'title': 'О сайте', "url_name": 'about'},
-    {'title': 'Добавить статью', "url_name": 'addpage'}
-]
-
-class WomenHome(ListView):
+class WomenHome(DataMixin, ListView):
     model = Women
     template_name = 'startpage/index.html'
     context_object_name = 'posts'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['spisok'] = menu
-        context['cats'] = Category.objects.all()
-        context['title'] = 'Главная страница'
-        context['cat_selected'] = 0
+        c_def = self.get_user_context(title='Главная страница')
+        context = dict(list(context.items()) + list(c_def.items()))
         return context
     def get_queryset(self):
         return Women.objects.filter(is_published=True)
