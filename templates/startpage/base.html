@@ -19,7 +19,9 @@
         <li><a href="{% url 'home' %}">Все категории</a></li>
     {% endif %} 
     {% for c in cats %}
-        <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+        {% if c.women__count > 0 %}
+            <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+        {% endif %}
     {% endfor %}
 
 
