@@ -15,6 +15,9 @@ from .utils import *
 
 
 class WomenHome(DataMixin, ListView):
+    """"
+    this func for present main page
+    """
     model = Women
     template_name = 'startpage/index.html'
     context_object_name = 'posts'
