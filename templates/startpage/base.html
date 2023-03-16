@@ -7,6 +7,7 @@
     <title>{{ title }}</title>
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="start">
     {% for m in spisok %}
         <h3><li><a href="{% url m.url_name %}">{{ m.title }}</a></li></h3>

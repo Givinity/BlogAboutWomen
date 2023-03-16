@@ -1,11 +1,17 @@
 .start {
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
+    display: flex;
 }
+.last {
+    margin-left: auto;
+}
+
 .blog {
     position: absolute;
     top: 50%;
 }
+
+
 .form-input {
-    padding-right: ;
+
 }
