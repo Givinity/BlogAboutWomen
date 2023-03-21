@@ -2,13 +2,13 @@
 
 {% block content %}
     <div><h1>Блог известных женщин</h1></div>
-    <div>
+    <div class="posts">
     <h4>
         {% for foo in posts%}
             {% if foo.photo %}
-                <p><img class="img-article-left thumb" src="{{ foo.photo.url }}" alt=""></p>
+                <p><img class="img-article-left" src="{{ foo.photo.url }}" alt=""></p>
             {% endif %}
-            <li>{{ foo.title }}
+            <li class="info-post">{{ foo.title }}
             {{foo.content|truncatewords:50}}
             </li>
             <br>
