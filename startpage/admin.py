@@ -11,10 +11,15 @@ class WomenAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     list_filter = ('time_create',)
     prepopulated_fields = {'slug': ('title', )}
+    fields = ('title', 'slug', 'cat', 'content', 'photo',
+              'is_published', 'get_html_photo', 'time_create')
+    readonly_fields = ('get_html_photo', 'time_create')
 
     def get_html_photo(self, object):
         if object.photo:
             return mark_safe(f'<img src="{object.photo.url}" width=50>')
+
+    get_html_photo.short_description = 'Миниатюра'
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
