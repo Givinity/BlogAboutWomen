@@ -1,10 +1,10 @@
 {% extends 'startpage/base.html' %}
 
 {% block content %}
-    <div><h1>Блог известных женщин</h1></div>
     <div class="posts">
     <h4>
         {% for foo in posts%}
+            <selection class="post">
             {% if foo.photo %}
                 <p><img class="img-article-left" src="{{ foo.photo.url }}" alt=""></p>
             {% endif %}
@@ -13,7 +13,8 @@
             </li>
             <br>
             <a href="{{ foo.get_absolute_url }}">Читать пост</a>
-
+            </selection>
+            <br>
         {% endfor %}
         <br>
 

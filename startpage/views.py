@@ -3,10 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, FormView
+from django.views.generic import ListView, DetailView, CreateView, FormView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import AddPostForm, RegisterUserForm, LoginUserForm, ContactForm
@@ -27,16 +26,25 @@ class WomenHome(DataMixin, ListView):
         c_def = self.get_user_context(title='Главная страница')
         context = dict(list(context.items()) + list(c_def.items()))
         return context
+
     def get_queryset(self):
         return Women.objects.filter(is_published=True).select_related('cat')
 
-#def index(request):
+
+# def index(request):
 #    posts = Women.objects.all()
 #    cats = Category.objects.all()
 #    return render(request, 'startpage/index.html', {'title': 'startpage', 'spisok': menu, 'posts': posts, 'cats': cats})
 
-def about(request):
-    return render(request, 'startpage/about.html')
+class About(DataMixin, TemplateView):
+    template_name = 'startpage/about.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='About')
+        return dict(list(context.items()) + list(c_def.items()))
+
 
 class ShowPost(DataMixin, DetailView):
     model = Women
@@ -46,7 +54,7 @@ class ShowPost(DataMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title = context['post'])
+        c_def = self.get_user_context(title=context['post'])
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -74,12 +82,13 @@ class WomenCategory(DataMixin, ListView):
         context = super().get_context_data(**kwargs)
         c = Category.objects.get(slug=self.kwargs['cat_slug'])
         c_def = self.get_user_context(title='Категория -' + str(c.name),
-                                      cat_selected = c.name)
+                                      cat_selected=c.name)
 
         return dict(list(context.items()) + list(c_def.items()))
         # context['title'] = 'Категория -' + str(context['posts'][0].cat)
         # context['menu'] = menu
         # context['cat_selected'] = context['posts'][0].cat_id
+
 
 # def show_category(request, cat_slug):
 #     posts = Women.objects.filter(cat__slug=cat_slug)
@@ -106,7 +115,7 @@ class WomenCategory(DataMixin, ListView):
 #         form = AddPostForm()
 #     return render(request, 'startpage/addpage.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})
 
-class AddPage(LoginRequiredMixin ,DataMixin, CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'startpage/addpage.html'
     login_url = reverse_lazy('home')
@@ -140,7 +149,7 @@ class LoginUser(DataMixin, LoginView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Авторизация')
-        return dict(list(context.items())+ list(c_def.items()))
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
         return reverse_lazy('home')

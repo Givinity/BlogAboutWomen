@@ -22,6 +22,7 @@ from womenproject import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('captcha/', include('captcha.urls')),
     path('', include('startpage.urls')),
 ]
 if settings.DEBUG:

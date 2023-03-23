@@ -3,7 +3,7 @@
     <h1>{{title}}</h1>
 
     <form method="post">
-    {% crf_token %}
+    {% csrf_token %}
 
     <div class="form-error">{{ form.non_field_errors }}</div>
 

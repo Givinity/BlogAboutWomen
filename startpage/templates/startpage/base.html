@@ -7,20 +7,24 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="start">
-    {% for m in spisok %}
-        <h3><li><a href="{% url m.url_name %}">{{ m.title }}</a></li></h3>
+    <header>
+        <h1>Блог о известных женщинах</h1>
+        <nav>
+                <ul>
+                    {% for m in spisok %}
+                        <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
 
-    {% endfor %}
+                    {% endfor %}
+                </ul>
+
     
         {% if request.user.is_authenticated %}
             <li class="last"> {{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
             {% else %}
-            <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a>
+            <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
         {% endif %}
-
-    </div>
+        </nav>
+    </header>
     {% if cat_selected == 0 %}
         <li class="selected">Все категории</li>
     {% else %}
@@ -45,7 +49,7 @@
     {% if page_obj.has_other_pages %}
     
 
-    <nav class="list-pages">
+    <div class="list-pages">
         <ul>
             {% if page_obj.has_previous %}
                 <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
@@ -66,8 +70,10 @@
             {% endif %} 
 
         </ul>
-    </nav>
+    </div>
     {% endif %}
-
+    <footer>
+		<p>&copy; Блог о знаменитых женщинах, 2023</p>
+	</footer>
 </body>
 </html>
