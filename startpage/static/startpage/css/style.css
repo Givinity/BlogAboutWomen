@@ -26,7 +26,9 @@ nav a {
 }
 
 .last {
-    margin-left: auto;
+    float: right;
+    color: #837f7f;
+	margin: auto;
 }
 
 .post img {
@@ -51,4 +53,8 @@ footer {
 	color: #fff;
 	padding: 20px;
 	text-align: center;
+}
+
+.selected {
+	margin-bottom: 10px;
 }
